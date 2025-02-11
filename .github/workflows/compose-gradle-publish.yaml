@@ -72,6 +72,9 @@ concurrency:
   group: compose-gradle-publish-${{ github.workflow }}-${{ github.event.inputs.GERRIT_BRANCH}}-${{ github.event.inputs.GERRIT_CHANGE_ID || github.run_id }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   gradle-publish:
     runs-on: ubuntu-latest
