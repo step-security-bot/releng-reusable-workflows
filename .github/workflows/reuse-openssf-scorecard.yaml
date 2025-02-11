@@ -27,6 +27,11 @@ jobs:
       # contents: read
       # actions: read
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - name: "Checkout code"
         # yamllint disable-line rule:line-length
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -63,6 +68,11 @@ jobs:
     needs: openssf-scorecard
     runs-on: ubuntu-24.04
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - name: "Provide link to scorecard"
         # The upstream action does not provide any useful summary output
         # the action below adds a hyperlink to the OpenSSF Scorecard/report

@@ -46,6 +46,11 @@ jobs:
     name: "Scan"
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - name: Setup Sonatype CLI
         # yamllint disable-line rule:line-length
         uses: sonatype/actions/setup-iq-cli@0ce7a29677076558341c2f8301508dcd7a1208c7 # v.1.2.0

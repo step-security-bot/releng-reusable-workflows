@@ -18,6 +18,11 @@ jobs:
     permissions:
       contents: read
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - name: Check Pinned Versions
         # yamllint disable-line rule:line-length
         uses: lfit/releng-reusable-workflows/.github/actions/pinned-versions-action@fd9bc3881956c2645d4da312079580d331f562ed # v0.2.2

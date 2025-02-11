@@ -105,10 +105,15 @@ jobs:
   run-tox-sonar-cloud-scan:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@cb605e52c26070c328afc4562f0b4ada7618a84e # v2.10.4
+        with:
+          egress-policy: audit
+
       - name: Run tox verify
         id: tox-verify
         # yamllint disable-line rule:line-length
-        uses: lfit/releng-reusable-workflows/.github/workflows/gerrit-compose-required-tox-verify.yaml@main
+        uses: lfit/releng-reusable-workflows/.github/workflows/gerrit-compose-required-tox-verify.yaml@722992887e1d5a032146db18e2e00adf78ff168e # main
         with:
           GERRIT_BRANCH: ${{ inputs.GERRIT_BRANCH }}
           GERRIT_CHANGE_ID: ${{ inputs.GERRIT_CHANGE_ID }}

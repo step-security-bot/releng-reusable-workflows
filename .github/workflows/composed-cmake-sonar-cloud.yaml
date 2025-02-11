@@ -84,6 +84,9 @@ concurrency:
   group: composed-cmake-sonar-cloud-${{ github.workflow }}-${{ github.event.inputs.GERRIT_BRANCH}}-${{ github.event.inputs.GERRIT_CHANGE_ID || github.run_id }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   run-cmake-sonar-scan:
     runs-on: ubuntu-latest
@@ -92,6 +95,11 @@ jobs:
 
     steps:
       # yamllint disable-line rule:line-length
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@cb605e52c26070c328afc4562f0b4ada7618a84e # v2.10.4
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           ref: ${{ inputs.GERRIT_BRANCH }}
